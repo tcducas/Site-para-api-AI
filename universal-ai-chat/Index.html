@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Universal AI Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="header">
+    <div class="header-badge"><span></span>UNIVERSAL AI BASE FILE v1.0</div>
+    <h1>Any API. One File.</h1>
+    <p>OpenAI · Gemini · Llama (Ollama) · Custom Endpoint</p>
+  </div>
+
+  <div class="api-tabs">
+    <button class="api-tab tab-openai active" onclick="switchAPI('openai')">
+      <span class="dot"></span>OpenAI
+    </button>
+    <button class="api-tab tab-gemini" onclick="switchAPI('gemini')">
+      <span class="dot"></span>Gemini
+    </button>
+    <button class="api-tab tab-llama" onclick="switchAPI('llama')">
+      <span class="dot"></span>Llama / Ollama
+    </button>
+    <button class="api-tab tab-custom" onclick="switchAPI('custom')">
+      <span class="dot"></span>Custom API
+    </button>
+  </div>
+
+  <div class="config-panel">
+    <div class="config-title">⚙ Configuration</div>
+    <div class="config-grid">
+      <div class="config-row">
+        <div class="config-field">
+          <label>API KEY</label>
+          <input id="cfg-key" type="password" placeholder="sk-... or AIza... or empty for Llama"/>
+        </div>
+        <div class="config-field">
+          <label>MODEL</label>
+          <input id="cfg-model" type="text" placeholder="Model name"/>
+        </div>
+      </div>
+      <div class="config-field" id="endpoint-field">
+        <label>BASE URL (Llama/Custom only)</label>
+        <input id="cfg-endpoint" type="text" placeholder="http://localhost:11434"/>
+      </div>
+      <div class="config-field">
+        <label>SYSTEM PROMPT (optional)</label>
+        <input id="cfg-system" type="text" placeholder="You are a helpful assistant..."/>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-wrap">
+    <div class="chat-window">
+      <div class="chat-chrome">
+        <div class="chrome-dots"><span></span><span></span><span></span></div>
+        <div class="chrome-title" id="chrome-title">AI CHAT — OPENAI</div>
+        <div class="chrome-status"><span class="dot"></span><span id="status-text">READY</span></div>
+      </div>
+      <div class="messages" id="messages">
+        <div class="welcome-screen" id="welcome">
+          <div class="welcome-icon">🧠</div>
+          <h3>Configure & Chat</h3>
+          <p>Select your API provider above, paste your key, and start chatting.</p>
+          <div class="quick-chips">
+            <div class="chip" onclick="sendChip('Explain quantum computing simply')">Explain quantum computing</div>
+            <div class="chip" onclick="sendChip('Write a Python hello world')">Python code</div>
+            <div class="chip" onclick="sendChip('What is the meaning of life?')">Deep question</div>
+            <div class="chip" onclick="sendChip('Help me debug my code')">Debug help</div>
+          </div>
+        </div>
+      </div>
+      <div class="input-bar">
+        <textarea id="user-input" rows="1" placeholder="Type your message…" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="send-btn" id="send-btn" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-cards">
+    <div class="info-card">
+      <div class="info-card-icon">🟢</div>
+      <div class="info-card-title">OpenAI</div>
+      <div class="info-card-text">Get key at platform.openai.com · Models: gpt-4o, gpt-4o-mini, gpt-3.5-turbo</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🔵</div>
+      <div class="info-card-title">Google Gemini</div>
+      <div class="info-card-text">Get key at aistudio.google.com · Models: gemini-2.0-flash, gemini-1.5-pro</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🟠</div>
+      <div class="info-card-title">Llama / Ollama</div>
+      <div class="info-card-text">Run locally: ollama serve · No API key needed · Models: llama3, mistral, phi3</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🟣</div>
+      <div class="info-card-title">Custom API</div>
+      <div class="info-card-text">Any OpenAI-compatible endpoint: Together AI, Groq, Mistral, Perplexity, etc.</div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
